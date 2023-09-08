@@ -4,9 +4,13 @@ import CardComponent from "../../fragments/CardSmall.vue"
 import DiscountCard from "../../fragments/DiscountCard.vue"
 import Next from "../../elements/NextButton.vue"
 import { ProductType } from "../../../type"
+import { Navigation, Autoplay } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/vue"
-import "swiper/swiper-bundle.css" // Import Swiper styles
+import "swiper/css" // Import Swiper styles
 
+const modules = [Navigation, Autoplay]
+
+const { uniqueId } = defineProps<{ uniqueId: string }>()
 const products: ProductType[] = [
   { title: "Product1", type: "fashion", price: 10000 },
   { title: "Product2", type: "fashion", price: 10000 },
@@ -24,7 +28,7 @@ const products: ProductType[] = [
   <div class="px-6 py-12 lg:px-28 lg:py-24">
     <div class="relative">
       <div class="absolute z-40 top-1/2 -right-[-6px] lg:-right-[-6px]">
-        <Next />
+        <Next :id-button="uniqueId" />
       </div>
       <div>
         <SectionHeader labelName="Latest Product" />
@@ -46,8 +50,13 @@ const products: ProductType[] = [
                 slidesPerView: 5,
               },
             }"
-            :pagination="true"
             :spaceBetween="24"
+            :modules="modules"
+            :navigation="{
+              enabled: true,
+              nextEl: `.swiper-button-next-${uniqueId}`,
+            }"
+            :loop="true"
           >
             <SwiperSlide v-for="data in products" :key="data.title">
               <CardComponent :products="[data]" />

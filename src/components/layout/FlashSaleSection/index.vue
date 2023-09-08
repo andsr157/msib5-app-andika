@@ -3,8 +3,13 @@ import SectionHeader from "../../fragments/SectionHeader.vue"
 import CardComponent from "../../fragments/Card.vue"
 import Timer from "../../elements/Timer.vue"
 import Next from "../../elements/NextButton.vue"
+import { Navigation, Autoplay } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/vue"
-import "swiper/swiper-bundle.css" // Import Swiper styles
+import "swiper/css" // Import Swiper styles
+
+const modules = [Navigation, Autoplay]
+
+const { uniqueId } = defineProps<{ uniqueId: string }>()
 
 import { ProductType } from "../../../type"
 const products: ProductType[] = [
@@ -39,16 +44,20 @@ const products: ProductType[] = [
             slidesPerView: 5,
           },
         }"
-        :pagination="true"
         :space-between="10"
+        :modules="modules"
+        :navigation="{
+          enabled: true,
+          nextEl: `.swiper-button-next-${uniqueId}`,
+        }"
+        :loop="true"
       >
         <SwiperSlide v-for="data in products" :key="data.title">
           <CardComponent :products="[data]" />
         </SwiperSlide>
       </Swiper>
-
-      <div class="absolute z-40 top-1/2 -right-4">
-        <Next />
+      <div class="absolute z-50 top-1/2 -right-4">
+        <Next :idButton="uniqueId" />
       </div>
     </div>
   </div>

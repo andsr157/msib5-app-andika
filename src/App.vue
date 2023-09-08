@@ -11,10 +11,10 @@ import HeaderHero from "./components/layout/HeaderHero/index.vue"
 <template>
   <HeaderHero />
   <CategoriesSection />
-  <FlashSaleSection />
-  <LatestProduct />
+  <FlashSaleSection uniqueId="99" />
+  <LatestProduct uniqueId="1" />
   <Promo />
-  <LatestProduct />
+  <LatestProduct uniqueId="2" />
   <ForYou />
   <FooterSection />
 </template>
