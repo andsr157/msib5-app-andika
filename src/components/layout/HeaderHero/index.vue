@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Header from "../../fragments/Header.vue"
 import Hero from "../../fragments/Hero.vue"
 </script>
